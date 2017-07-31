@@ -18,6 +18,13 @@ namespace Assets.Scripts
 		// Variables needed by ray cast munitions
 		[SerializeField]
 		private bool isRayCast;
+		[SerializeField]
+		private float fireRate;
+		[SerializeField]
+		private float range;
+		private RaycastHit hitInfo;
+		private Ray ray ;
+		private Vector3 hitPoint;
 
 		// All munitions need to know where the camera is
 		private GameObject playerCamera;
@@ -27,6 +34,7 @@ namespace Assets.Scripts
 		void Start () {
 
 			playerCamera = GameObject.FindGameObjectWithTag("FPCamera");
+			ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
 		}
 	
@@ -40,6 +48,11 @@ namespace Assets.Scripts
 				if (isProjectile && !isRayCast)
 				{
 					ShootProjectile();
+				}
+
+				if (isProjectile && !isRayCast)
+				{
+					ShootRayCast();
 				}
 
 			}
@@ -59,6 +72,27 @@ namespace Assets.Scripts
 
 			launchedBullet = (GameObject)Instantiate(bullet, playerCamera.transform.position + playerCamera.transform.forward * 1, playerCamera.transform.rotation);
 			launchedBullet.GetComponent<Rigidbody>().AddForce(playerCamera.transform.forward * initialVelocity, ForceMode.Impulse);
+		}
+
+		public void ShootRayCast()
+		{
+
+			// Todo: Add logic to limit the rate of fire.
+			// Todo: Add logic to limit ammunition.
+			// Todo: Add logic to reload.
+//			Ray ray = new Ray(playerCamera.transform.position,playerCamera.transform.forward);
+			ray.origin = playerCamera.transform.position;
+			ray.direction = playerCamera.transform.forward;
+
+
+			if(Physics.Raycast(ray, out hitInfo, range))
+			{
+				hitPoint = hitInfo.point;
+				// Send a call to the target that was hit so it shows that it was hit.
+			}
+
+
+
 		}
 	}
 }
