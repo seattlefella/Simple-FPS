@@ -8,6 +8,7 @@ TagManager:
   - Target
   - Fire
   - Explosion
+  - Munition
   layers:
   - Default
   - TransparentFX

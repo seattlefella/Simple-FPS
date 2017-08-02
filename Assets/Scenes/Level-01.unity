@@ -164,6 +164,37 @@ Prefab:
       propertyPath: isProjectile
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114744701577202982, guid: 2f5d0e8a7da387c44948a93dd9065a6a,
+        type: 2}
+      propertyPath: isRayCast
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114744701577202982, guid: 2f5d0e8a7da387c44948a93dd9065a6a,
+        type: 2}
+      propertyPath: fireRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114744701577202982, guid: 2f5d0e8a7da387c44948a93dd9065a6a,
+        type: 2}
+      propertyPath: range
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114744701577202982, guid: 2f5d0e8a7da387c44948a93dd9065a6a,
+        type: 2}
+      propertyPath: isSingleFire
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114744701577202982, guid: 2f5d0e8a7da387c44948a93dd9065a6a,
+        type: 2}
+      propertyPath: tempDamage
+      value: 
+      objectReference: {fileID: 1461482466455620, guid: 1c93ef09ee41497499bdba0fb507eaad,
+        type: 2}
+    - target: {fileID: 114744701577202982, guid: 2f5d0e8a7da387c44948a93dd9065a6a,
+        type: 2}
+      propertyPath: lifeTime
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f5d0e8a7da387c44948a93dd9065a6a, type: 2}
   m_IsPrefabParent: 0
