@@ -5,7 +5,7 @@ namespace Assets.Scripts
     public class Weapon : MonoBehaviour
     {
 
-        // General variables do define behavior
+        // General variables do define behavior and stay with the weapon
         [SerializeField]
         private bool isSingleFire;
         [SerializeField]
@@ -33,14 +33,16 @@ namespace Assets.Scripts
         // Variables needed by ray cast munitions
         [SerializeField]
         private bool isRayCast;
-        [SerializeField]
-        private float range;
+        //[SerializeField]
+        //private float range;
+
+        [SerializeField] private Munitions munition;
 
         private RaycastHit hitInfo;
         private Ray ray;
         //		private Vector3 hitPoint;
 
-        // All munitions need to know where the camera is
+        // All weapons need to know where the camera is
         private GameObject playerCamera;
 
 
@@ -92,24 +94,12 @@ namespace Assets.Scripts
         // updates are done.
         public void ShootProjectile()
         {
-
-            // Todo: Add logic to limit the rate of fire.
-            // Todo: Convert the different types of shooters into delegates that are selected at startup
-            // Todo: Move I have been hit logic to the target - make it his responsibility
-            // Todo: Re-factor game objects - add weaponHolder, firePoint and one concrete weapon.
-            // Todo: Add logic to limit ammunition.
-            // Todo: Add logic to reload.
-            // ToDo: Delete the BulletBall Script
-            // ToDo: Re-factor code to put all munition parameters into a class.
-
-
-
-            //launchedBullet = (GameObject)Instantiate(bullet, firePoint.transform.position + firePoint.transform.forward, firePoint.transform.rotation);
+            // The target senses via OnCollisionEnter And takes action
             launchedBullet = (GameObject)Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
             launchedBullet.GetComponent<Rigidbody>().AddForce(firePoint.transform.forward * initialVelocity, ForceMode.Impulse);
+
             // The munition missed everything so simply destroy it at the end of its life time
             Destroy(launchedBullet, lifeTime);
-            // The target senses via OnCollisionEnter And takes action
         }
 
         public void ShootRayCast()
@@ -117,7 +107,7 @@ namespace Assets.Scripts
             ray.origin = firePoint.transform.position;
             ray.direction = firePoint.transform.forward;
 
-            if (Physics.Raycast(ray, out hitInfo, range))
+            if (Physics.Raycast(ray, out hitInfo, munition.Range))
             {
                 // Send a call to the target that was hit so it can take appropriate action
                 tempComponent = hitInfo.transform.gameObject.GetComponent<Target>();

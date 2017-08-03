@@ -676,15 +676,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b86a355f91edd41a58d0b684b446ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSingleFire: 0
+  isSingleFire: 1
   fireRate: 5
   bullet: {fileID: 1222324362426642, guid: 11c250eb01587a047a80d97f7f6ff869, type: 2}
   firePoint: {fileID: 584274453}
   initialVelocity: 50
-  isProjectile: 1
+  isProjectile: 0
   lifeTime: 3
-  isRayCast: 0
-  range: 10
+  isRayCast: 1
+  munition: {fileID: 11400000, guid: a1c2385f3a2816f40991b2ce8c97b036, type: 2}
 --- !u!1 &814352698
 GameObject:
   m_ObjectHideFlags: 0
