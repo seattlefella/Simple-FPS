@@ -104,7 +104,8 @@ namespace Assets.Scripts
 
 
 
-            launchedBullet = (GameObject)Instantiate(bullet, firePoint.transform.position + firePoint.transform.forward, firePoint.transform.rotation);
+            //launchedBullet = (GameObject)Instantiate(bullet, firePoint.transform.position + firePoint.transform.forward, firePoint.transform.rotation);
+            launchedBullet = (GameObject)Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
             launchedBullet.GetComponent<Rigidbody>().AddForce(firePoint.transform.forward * initialVelocity, ForceMode.Impulse);
             // The munition missed everything so simply destroy it at the end of its life time
             Destroy(launchedBullet, lifeTime);
