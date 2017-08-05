@@ -3,8 +3,10 @@
 namespace Assets.Scripts
 {
     [CreateAssetMenu(fileName = "Munition-1", menuName = "Weapon/Munition", order = 1)]
-    public class Munitions : ScriptableObject {
+    public class Munitions : ScriptableObject
+    {
 
+        public string Version;
         // Variables needed by all munitions
         public bool IsRayCast;
 

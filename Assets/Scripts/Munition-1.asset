@@ -14,7 +14,8 @@ MonoBehaviour:
   IsRayCast: 1
   Name: Small
   Type: AK-47
-  MuzzleEffect: {fileID: 0}
+  MuzzleEffect: {fileID: 1923521296949846, guid: a64567122841501488ace1627eb1b0f6,
+    type: 2}
   TravelEffect: {fileID: 0}
   DestructEffect: {fileID: 0}
   Range: 10

@@ -11,6 +11,15 @@ namespace Assets.Scripts
         [SerializeField]
         private float fireRate;
 
+        private GameObject muzzleEffect;
+        [SerializeField] private Transform muzzleEffectParent;
+        [SerializeField]
+        private ParticleSystem particleSystem;
+        [SerializeField]
+        private AudioClip MuzzleFireSound;
+        [SerializeField]
+        private AudioSource muzzleAudioSource;
+
         private Target tempComponent;
 
         private delegate void shootMethod();
@@ -106,6 +115,19 @@ namespace Assets.Scripts
         {
             ray.origin = firePoint.transform.position;
             ray.direction = firePoint.transform.forward;
+
+            muzzleEffect = (GameObject)Instantiate(munition.MuzzleEffect, Vector3.zero, Quaternion.identity);
+            muzzleEffect.transform.parent = muzzleEffectParent;
+            muzzleEffect.transform.localPosition = Vector3.zero;
+            muzzleEffect.transform.localRotation = Quaternion.identity;
+            muzzleEffect.transform.localScale = Vector3.one;
+
+            muzzleEffect.SetActive(true);
+
+            //           firePoint.transform.position = Vector3.zero;
+
+ //           muzzleEffect.GetComponent<ParticleSystem>().Play();
+            Destroy(muzzleEffect, 2f);
 
             if (Physics.Raycast(ray, out hitInfo, munition.Range))
             {
