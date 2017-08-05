@@ -7,7 +7,8 @@
 3rdParty/
 Builds/
 Assets/Standard Assets/
-Assets/Database Control Free/
+Assets/dPartyDatabase Control Free/
+Assets/3rdParty/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
