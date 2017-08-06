@@ -13,17 +13,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Version: 
   Name: Ak-47
-  Type: 0
+  Type: 1
   Supported: []
   IsSingleFire: 0
   FireRate: 5
+  JamRate: 0
   KickBackEffect: {fileID: 0}
   HealthEffect: {fileID: 0}
   DestructEffect: {fileID: 0}
+  GunJamEffect: {fileID: 0}
   GunJamSound: {fileID: 0}
-  TargetDamage: 5
-  WeaponDamage: 5
-  StrikeingForce: {x: 0, y: 0, z: 0}
+  WeaponHealth: 0
+  WeaponMaxHealth: 0
+  WeaponHealRate: 0
   Projectile: {fileID: 1222324362426642, guid: 11c250eb01587a047a80d97f7f6ff869, type: 2}
-  initialVelocity: 50
-  lifetime: 3
+  InitialVelocity: 50

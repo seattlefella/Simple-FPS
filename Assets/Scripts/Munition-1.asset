@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19632fbc4eb08547b92bea9e823593f, type: 3}
   m_Name: Munition-1
   m_EditorClassIdentifier: 
-  Version: 
+  Version: 1.00
   IsRayCast: 1
   Name: Small
   Type: RayCast
@@ -23,6 +23,6 @@ MonoBehaviour:
   FireSound: {fileID: 8300000, guid: 2d86eeb72727fe541b7b97491109bbe9, type: 3}
   Range: 10
   LifeTime: 3
-  TargetDamage: 3
-  WeaponDamage: 1
+  TargetDamage: 2
   StrikeingForce: {x: 0, y: 0, z: 0}
+  WeaponDamage: 1

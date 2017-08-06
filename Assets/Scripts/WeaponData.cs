@@ -9,29 +9,30 @@ namespace Assets.Scripts
 
         public string Name;             // the name of the weapon class. IE. AK-47
         public WeaponType Type;        // Ray-cast or projectile
-        public Munitions[] Supported;   // A list of the supported munitions
 
+        // Weapon specifics
+        public Munition[] Supported;   // A list of the supported munitions
         public bool IsSingleFire;
         public float FireRate;
+        public float JamRate;       //What percentage of shots will jam
 
         // Visual and audio effects generated from this Weapon
         public GameObject KickBackEffect;
         public GameObject HealthEffect;
         public GameObject DestructEffect;
+        public GameObject GunJamEffect;
         public AudioClip GunJamSound;
 
-        // Power and health variables
-        public float TargetDamage;      // Just how much damage will this munition inflict on the target it hits
-        public float WeaponDamage;      // The more powerful the munition the bigger the toll it takes on the weapon. 
-        public Vector3 StrikeingForce;  // The resulting impulse force hitting a target
+        // Health variables
+        public float WeaponHealth;      // The current health of the weapon
+        public float WeaponMaxHealth;   // The health when the weapon is new.
+        public float WeaponHealRate;    // The rate at which the weapon will cool, or heal from damage
 
         // Parameters needed if the munition is a projectile
         // Todo: Add a custom inspector to only show these fields if this weapon can fire projectiles
         [Header("Parameters needed to shoot a Projectile ")]
         public GameObject Projectile;
-
         public float InitialVelocity;   // ToDo: put a range limit on this
-        public float Lifetime;          // The max. time this projectile will remain in the scene
 
     }
 

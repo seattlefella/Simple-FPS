@@ -2,15 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CommonDeclarations  {
-
-
-
-
-}
-
-public enum WeaponType : byte
+namespace Assets.Scripts
 {
-    Raycaster,
-    Projectile
+    public class CommonDeclarations
+    {
+
+
+
+
+    }
+
+    public enum WeaponType : byte
+    {
+        Raycaster,
+        Projectile
+    }
+
+    public enum MagazineType : byte
+    {
+        Single,
+        Double
+    }
+
+    public enum Mix : byte
+    {
+        Uniform,
+        Random,
+        RoundRobin
+    }
 }

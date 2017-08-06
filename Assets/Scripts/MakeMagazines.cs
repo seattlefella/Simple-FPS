@@ -1,22 +1,23 @@
-﻿using UnityEditor;
+﻿
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class MakeMunitions
-    {
-        [MenuItem("Assets/Create/Munition Object")]
-        public static void CreatMunitions()
+    public class MakeMagazines : MonoBehaviour {
+        [MenuItem("Assets/Create/Magazine Object")]
+        public static void CreatMagazines()
         {
-            Munition asset = ScriptableObject.CreateInstance<Munition>();
+            MagazineData asset = ScriptableObject.CreateInstance<MagazineData>();
 
             AssetDatabase.CreateAsset(asset, "Assets/NewScripableObject.asset");
             AssetDatabase.SaveAssets();
-
             EditorUtility.FocusProjectWindow();
-
             Selection.activeObject = asset;
 
-        }    
+        }
     }
+
 }
+
+

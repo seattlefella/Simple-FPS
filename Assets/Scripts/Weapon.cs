@@ -10,10 +10,14 @@ namespace Assets.Scripts
         [SerializeField]
         private WeaponData weaponData;
 
+        // this is the holder of all this weapons ammunition
+        [SerializeField]
+        private MagazineData magazineData;
+
         // This is all of the parametric data on the munition.
         // Todo: This will be re-factored to come from a magazine class.
         [SerializeField]
-        private Munitions munition;
+        private Munition munition;
 
         // Delegates and events needed by the class
         private delegate void shootMethod();
@@ -121,7 +125,6 @@ namespace Assets.Scripts
             ray.direction = firePoint.transform.forward;
 
             muzzleFireEffect();
-
 
             // Notify what ever was hit that it was hit and by what
             if (Physics.Raycast(ray, out hitInfo, munition.Range))
