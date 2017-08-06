@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -14,9 +15,12 @@ namespace Assets.Scripts
         [SerializeField]
         private MagazineData magazineData;
 
+        // The magazine class this weapon will use to operate
+        private Magazine magazine;
+
         // This is all of the parametric data on the munition.
         // Todo: This will be re-factored to come from a magazine class.
-        [SerializeField]
+ //       [SerializeField]
         private Munition munition;
 
         // Delegates and events needed by the class
@@ -57,22 +61,12 @@ namespace Assets.Scripts
             playerCamera = GameObject.FindGameObjectWithTag("FPCamera");
             ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
+            // This class maintains the state of our available ammo
+            magazine = new Magazine(magazineData);
+
             // Set up the delegates so they know which shoot function to use
-            if (weaponData.Type == WeaponType.Projectile)
-            {
-                shoot = ShootProjectile;
-            }
+            setUpShootdeligates();
 
-            else if (weaponData.Type == WeaponType.Raycaster)
-            {
-                shoot = ShootRayCast;
-            }
-
-            else
-            {
-                // just in case we add a type and not a method to shoot it.
-                shoot = ShootRayCast;
-            }
         }
 
         // Update is called once per frame
@@ -117,8 +111,17 @@ namespace Assets.Scripts
         {
 
             // Get a munition from the active magazine if out of ammo take out of ammo action
+            munition = magazine.GetMunition();
+            if (munition == null  || magazine.IsEmpty)
+            {
+                // take what ever action needs to be done to reload the Magazine
+                reload();
+                // you cannot shoot with no ammo!
+                return;           
+            }
 
             // Check the health of the weapon - one cannot fire if is over heated
+            checkHealth();
 
             // Fire the shot
             ray.origin = firePoint.transform.position;
@@ -156,6 +159,38 @@ namespace Assets.Scripts
 
             Destroy(muzzleEffect, 2f);
         }
+
+        private void setUpShootdeligates() { 
+            // Set up the delegates so they know which shoot function to use
+            if (weaponData.Type == WeaponType.Projectile)
+            {
+                shoot = ShootProjectile;
+            }
+
+            else if (weaponData.Type == WeaponType.Raycaster)
+            {
+                shoot = ShootRayCast;
+            }
+
+            else
+            {
+                // just in case we add a type and not a method to shoot it.
+                shoot = ShootRayCast;
+            }
+        }
+
+        private void reload()
+        {
+          //  Debug.Log("We are out of ammo and need to reload");
+        }
+
+        private void checkHealth()
+        {
+            // Debug.Log("We are out of ammo and need to reload");
+            return;
+        }
+
+
     }
 
 

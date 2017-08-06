@@ -8,10 +8,10 @@ namespace Assets.Scripts
     {
         public string Version;
         // Variables needed by all munitions
-        public bool IsRayCast;
+//        public bool IsRayCast;
 
         public string Name;         // the name of the munition class. Caliber, color, power - descriptive and helps the user select which to use
-        public string Type;         // Ray-cast or projectile  TODO: Convert to an enum
+        public WeaponType Type;        // Ray-cast or projectile
         public string Supported;    // which weapon can use this munition
 
         // Visual and audio effects generated from this munition

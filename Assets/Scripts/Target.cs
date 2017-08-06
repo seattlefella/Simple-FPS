@@ -17,7 +17,7 @@ namespace Assets.Scripts
         private GameObject explosion;
 
         [SerializeField]
-        private Renderer renderer;
+        private Renderer targetRenderer;
 
         // This method responds to the Target being hit by a rayShooter
         public void OnShot(RaycastHit hitInfo, WeaponType type)
@@ -46,7 +46,7 @@ namespace Assets.Scripts
 
         void Explosion()
         {
-                renderer.enabled = false;
+                targetRenderer.enabled = false;
                 explosion.SetActive(true);
         }
 

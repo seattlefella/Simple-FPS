@@ -5,67 +5,71 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Magazine : MonoBehaviour
+    public class Magazine //: MonoBehaviour
     {
-
-        public Clip CurrentClip;
+        private int size;
+        public int CurrentCount;
+        public bool IsEmpty;
+        public bool IsReloading;
 
         // the data we are using to build new magazine clips
-        public MagazineData CurrentMagazine;
+        private MagazineData currentMagazine;
 
-        // A place to store loaded and empty clips
-        private List<Clip> clips = new List<Clip>();
+        private Munition currentMunition;
 
-        public Clip CreateEmptyClip()
+        // The data structure used to hold the munitions set up as a LIFO store
+        private Stack<Munition> currentClip = new Stack<Munition>();
+
+        // As this is a non mono-behavior we need a constructor
+        public Magazine(MagazineData _data)
         {
-            return new Clip(CurrentMagazine.MaxSize);
+            // Let's keep a reference to the magazine operating parameters
+            currentMagazine = _data;
+
+            // initialize the class properties
+            size = _data.MaxSize;
+            IsEmpty = true;
+            CurrentCount = 0;
+            IsReloading = false;
+
+            // Load the clip using the mix of munitions specified
+            loadClip(currentClip);
+
         }
 
-        public Clip LoadClip(Clip _clip)
+        public Munition GetMunition()
         {
-            for (var i = 0; i < CurrentMagazine.MaxSize; i++)
+            if (currentClip.Count > 0)
             {
-                _clip.Ammo.Add(CurrentMagazine.Supported[0]);
+                currentMunition = currentClip.Pop();
+                CurrentCount = currentClip.Count;
+                return currentMunition;
             }
 
-            _clip.IsReloading = false;
-            _clip.CurrentCount = CurrentMagazine.MaxSize;
-            _clip.IsEmpty = false;
+            // The clip is empty so return empty handed
+            IsEmpty = true;
+            return null;
+        }
+
+        private Stack<Munition> loadClip(Stack<Munition> _clip)
+        {
+
+            // TODO:  add logic to change the mix of munitions as specified in the MagazineData
+            // This is a simple load them all the same method.
+            // Possible to use an algorithm design pattern
+            for (var i = 0; i < size; i++)
+            {
+                _clip.Push(currentMagazine.Supported[0]);
+            }
+
+            IsReloading = false;
+            CurrentCount = size;
+            IsEmpty = false;
 
             return _clip;
         }
 
     }
 
-    public interface IMagizine
-    {
-        Clip Reload(Clip clip);
-        Munition GetMunition();
 
-        Clip CreateClip();
-
-        int DestroyClip(Clip clip);
-
-    }
-
-    // a data structure that holds a collection of munitions  
-    public class Clip
-    {
-        public int Size;
-        public int CurrentCount;
-        public List<Munition> Ammo = new List<Munition>();
-        public bool IsEmpty;
-        public bool IsReloading;
-
-       public Clip(int _size)
-        {
-            Size = _size;
-            CurrentCount = 0;
-            IsEmpty = true;
-            IsReloading = false;
-
-        }
-
-
-    }
 }
