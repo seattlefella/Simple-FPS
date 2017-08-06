@@ -20,9 +20,9 @@ namespace Assets.Scripts
         private Renderer renderer;
 
         // This method responds to the Target being hit by a rayShooter
-        public void OnShot(RaycastHit hitInfo, bool isRayCast)
+        public void OnShot(RaycastHit hitInfo, WeaponType type)
         {
-            if (isRayCast)
+            if (WeaponType.Raycaster == type)
             {
                 //  Instantiate(tempDamage, hitInfo.point, Quaternion.identity);      
                 Explosion();

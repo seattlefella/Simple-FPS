@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcd58e74080db684dbc6272a7626d31f, type: 3}
+  m_Name: Ak-47
+  m_EditorClassIdentifier: 
+  Version: 
+  Name: Ak-47
+  Type: 0
+  Supported: []
+  IsSingleFire: 0
+  FireRate: 5
+  KickBackEffect: {fileID: 0}
+  HealthEffect: {fileID: 0}
+  DestructEffect: {fileID: 0}
+  GunJamSound: {fileID: 0}
+  TargetDamage: 5
+  WeaponDamage: 5
+  StrikeingForce: {x: 0, y: 0, z: 0}
+  Projectile: {fileID: 1222324362426642, guid: 11c250eb01587a047a80d97f7f6ff869, type: 2}
+  initialVelocity: 50
+  lifetime: 3
