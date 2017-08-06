@@ -5,9 +5,35 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Magazine : MonoBehaviour {
+    public class Magazine : MonoBehaviour
+    {
 
-  
+        public Clip CurrentClip;
+
+        // the data we are using to build new magazine clips
+        public MagazineData CurrentMagazine;
+
+        // A place to store loaded and empty clips
+        private List<Clip> clips = new List<Clip>();
+
+        public Clip CreateEmptyClip()
+        {
+            return new Clip(CurrentMagazine.MaxSize);
+        }
+
+        public Clip LoadClip(Clip _clip)
+        {
+            for (var i = 0; i < CurrentMagazine.MaxSize; i++)
+            {
+                _clip.Ammo.Add(CurrentMagazine.Supported[0]);
+            }
+
+            _clip.IsReloading = false;
+            _clip.CurrentCount = CurrentMagazine.MaxSize;
+            _clip.IsEmpty = false;
+
+            return _clip;
+        }
 
     }
 
@@ -27,9 +53,18 @@ namespace Assets.Scripts
     {
         public int Size;
         public int CurrentCount;
-        public List<Munition> ActiveClip = new List<Munition>();
+        public List<Munition> Ammo = new List<Munition>();
         public bool IsEmpty;
         public bool IsReloading;
+
+       public Clip(int _size)
+        {
+            Size = _size;
+            CurrentCount = 0;
+            IsEmpty = true;
+            IsReloading = false;
+
+        }
 
 
     }
