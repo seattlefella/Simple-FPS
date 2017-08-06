@@ -16,8 +16,8 @@ MonoBehaviour:
   Type: 0
   Supported:
   - {fileID: 11400000, guid: a1c2385f3a2816f40991b2ce8c97b036, type: 2}
-  - {fileID: 11400000, guid: 49411a3646b82f34f9a1fb97892c1932, type: 2}
-  - {fileID: 11400000, guid: ec9acd2a03893534b912d334be9ad00a, type: 2}
+  - {fileID: 11400000, guid: c7edd1adcdb59804ab675b005bab9bd3, type: 2}
+  - {fileID: 11400000, guid: 2e77fb764e3e33b4a948b90e12466f6b, type: 2}
   MaxSize: 10
   CurrentCount: 10
   IsEmpty: 0
