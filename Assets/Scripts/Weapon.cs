@@ -27,6 +27,7 @@ namespace Assets.Scripts
         private delegate void shootMethod();
         private shootMethod shoot;
 
+
         // The designer must use the editor to set the references
         // These cannot be stored int eh scriptableObject
         [SerializeField]
@@ -45,6 +46,11 @@ namespace Assets.Scripts
         [SerializeField]
         private Transform muzzleEffectParent;
 
+
+        // Variables related to the state of the weapon
+        private bool isReloading;
+
+        private bool isOutofAmmo;
 
         // private variables needed for internal reasons by the class
         private Target tempComponent;       // ToDo: eliminate the need for this variable
@@ -66,6 +72,10 @@ namespace Assets.Scripts
 
             // Set up the delegates so they know which shoot function to use
             setUpShootdeligates();
+
+            // initialize the misc. state variables.
+            isReloading = magazine.IsReloading;
+            isOutofAmmo = magazine.IsEmpty;
 
         }
 
@@ -91,6 +101,13 @@ namespace Assets.Scripts
                 }
             }
 
+            if (Input.GetKeyDown(KeyCode.R) && !isReloading && isOutofAmmo)
+            {
+                // note:  reloading will be set up to take some seconds and have other effects.
+                // We do not want to allow the user to start another reload until it is over.
+                reload();
+            }
+
         }
 
         // this method will actually use the physics system to move a game object through space
@@ -114,8 +131,10 @@ namespace Assets.Scripts
             munition = magazine.GetMunition();
             if (munition == null  || magazine.IsEmpty)
             {
-                // take what ever action needs to be done to reload the Magazine
-                reload();
+                // Enter the out of ammo state until you are reloaded
+                outOfAmmo();
+                // reload();
+
                 // you cannot shoot with no ammo!
                 return;           
             }
@@ -142,6 +161,8 @@ namespace Assets.Scripts
                 }
              }
          }
+
+
 
         private void muzzleFireEffect()
         {
@@ -181,7 +202,21 @@ namespace Assets.Scripts
 
         private void reload()
         {
-          //  Debug.Log("We are out of ammo and need to reload");
+            isReloading = true;
+            // there should be a multi second delay on reloading.
+            magazine.Reload();
+            isOutofAmmo = false;
+            isReloading = false;
+
+          Debug.Log("We have reloaded the magazine");
+        }
+
+        private void outOfAmmo()
+        {
+            //  Update the UI
+            //  Put the weapon in a visible out of ammo state
+            //  make a out of ammo sound, IE. the gun did not fire
+            isOutofAmmo = true;
         }
 
         private void checkHealth()

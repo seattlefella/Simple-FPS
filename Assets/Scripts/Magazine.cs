@@ -51,6 +51,12 @@ namespace Assets.Scripts
             return null;
         }
 
+        public void Reload()
+        {
+            // This is in a separate function to allow for loading effects and other
+            loadClip(currentClip);
+        }
+
         private Stack<Munition> loadClip(Stack<Munition> _clip)
         {
 
