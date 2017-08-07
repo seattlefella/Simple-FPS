@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Version: 
   Name: Ak-47
-  Type: 0
+  Type: 1
   Supported: []
   IsSingleFire: 0
   FireRate: 5
@@ -23,6 +23,7 @@ MonoBehaviour:
   DestructEffect: {fileID: 0}
   GunJamEffect: {fileID: 0}
   GunJamSound: {fileID: 0}
+  OutOfAmmoSound: {fileID: 8300000, guid: ecd094324628d374db874e28f2c20197, type: 3}
   WeaponHealth: 5
   WeaponMaxHealth: 5
   WeaponHealRate: 5

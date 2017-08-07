@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Scripts
 {
@@ -19,16 +20,6 @@ namespace Assets.Scripts
         [SerializeField]
         private Renderer targetRenderer;
 
-        // This method responds to the Target being hit by a rayShooter
-        public void OnShot(RaycastHit hitInfo, WeaponType type)
-        {
-            if (WeaponType.Raycaster == type)
-            {
-                //  Instantiate(tempDamage, hitInfo.point, Quaternion.identity);      
-                Explosion();
-            }
-
-        }
 
 
         // This method responds to the target being hit by a munition
@@ -48,6 +39,34 @@ namespace Assets.Scripts
         {
                 targetRenderer.enabled = false;
                 explosion.SetActive(true);
+        }
+
+        void OnEnable()
+        {
+            EventManager.OnHitByMunition.AddListener(OnHitByMunition);  
+
+        }
+
+        void OnDisable()
+        {
+            EventManager.OnHitByMunition.RemoveListener(OnHitByMunition);
+
+        }
+
+        public void OnHitByMunition(RaycastHit _hitInfo, WeaponType _type)
+        {
+
+            if (_hitInfo.transform.gameObject == this.gameObject)
+            {
+                Debug.Log("the OnHitByMunition event was called on the target");
+                if (WeaponType.Raycaster == _type)
+                {
+                    //  Instantiate(tempDamage, hitInfo.point, Quaternion.identity);      
+                    Explosion();
+                }
+            }
+
+
         }
 
     }
