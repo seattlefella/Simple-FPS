@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using System.Collections;
 
 namespace Assets.Scripts
 {
@@ -25,7 +26,7 @@ namespace Assets.Scripts
 
         // Delegates and events needed by the class
         private delegate void shootMethod();
-        private shootMethod shoot;
+        private shootMethod fire;
 
 
         // The designer must use the editor to set the references
@@ -71,7 +72,7 @@ namespace Assets.Scripts
             magazine = new Magazine(magazineData);
 
             // Set up the delegates so they know which shoot function to use
-            setUpShootdeligates();
+            setUpFireMethod();
 
             // initialize the misc. state variables.
             isReloading = magazine.IsReloading;
@@ -93,11 +94,11 @@ namespace Assets.Scripts
             {
                 if (Input.GetButtonDown("Fire1"))
                 {
-                    InvokeRepeating(shoot.Method.Name, 0f, 1f / weaponData.FireRate);
+                    InvokeRepeating("shoot", 0f, 1f / weaponData.FireRate);
                 }
                 else if (Input.GetButtonUp("Fire1"))
                 {
-                    CancelInvoke(shoot.Method.Name);
+                    CancelInvoke("shoot");
                 }
             }
 
@@ -110,43 +111,36 @@ namespace Assets.Scripts
 
         }
 
-        // this method will actually use the physics system to move a game object through space
-        // Care must be taken in selecting the speed of the projectile as if the physics engine cannot keep up
-        // The game object will pass through scene objects.  Also, the designer may have to change how fast physic
-        // updates are done.
-        public void ShootProjectile()
+        private void shoot()
         {
-            // The target senses via OnCollisionEnter And takes action
-            launchedBullet = (GameObject)Instantiate(weaponData.Projectile, firePoint.transform.position, firePoint.transform.rotation);
-            launchedBullet.GetComponent<Rigidbody>().AddForce(firePoint.transform.forward * weaponData.InitialVelocity, ForceMode.Impulse);
-            muzzleFireEffect();
-            // The munition missed everything so simply destroy it at the end of its life time
-            Destroy(launchedBullet, munition.LifeTime);
-        }
-
-        public void ShootRayCast()
-        {
-
             // Get a munition from the active magazine if out of ammo take out of ammo action
             munition = magazine.GetMunition();
-            if (munition == null  || magazine.IsEmpty)
+            if (munition == null || isOutofAmmo || isReloading)
             {
                 // Enter the out of ammo state until you are reloaded
                 outOfAmmo();
                 // reload();
 
                 // you cannot shoot with no ammo!
-                return;           
+                return;
             }
 
             // Check the health of the weapon - one cannot fire if is over heated
             checkHealth();
 
-            // Fire the shot
+            // Display the muzzle effects
+            muzzleFireEffect();
+
+            // fire the weapon using the method in Start()  projectile or ray.
+            fire();
+
+        }
+
+        private void fireRaycast()
+        {
+            // Fire the shot via ray-cast
             ray.origin = firePoint.transform.position;
             ray.direction = firePoint.transform.forward;
-
-            muzzleFireEffect();
 
             // Notify what ever was hit that it was hit and by what
             if (Physics.Raycast(ray, out hitInfo, munition.Range))
@@ -159,10 +153,18 @@ namespace Assets.Scripts
                     // ToDo: Send data on the munition that was used so the correct effect can be implemented
                     tempComponent.OnShot(hitInfo, weaponData.Type);
                 }
-             }
-         }
+            }
+        }
 
-
+        private void fireProjectile()
+        {
+            // The target senses via OnCollisionEnter And takes action
+            launchedBullet = (GameObject)Instantiate(weaponData.Projectile, firePoint.transform.position, firePoint.transform.rotation);
+            launchedBullet.GetComponent<Rigidbody>().AddForce(firePoint.transform.forward * weaponData.InitialVelocity, ForceMode.Impulse);
+            muzzleFireEffect();
+            // The munition missed everything so simply destroy it at the end of its life time
+            Destroy(launchedBullet, munition.LifeTime);
+        }
 
         private void muzzleFireEffect()
         {
@@ -181,42 +183,55 @@ namespace Assets.Scripts
             Destroy(muzzleEffect, 2f);
         }
 
-        private void setUpShootdeligates() { 
+        private void setUpFireMethod() { 
             // Set up the delegates so they know which shoot function to use
             if (weaponData.Type == WeaponType.Projectile)
             {
-                shoot = ShootProjectile;
+                fire = fireProjectile;
             }
 
             else if (weaponData.Type == WeaponType.Raycaster)
             {
-                shoot = ShootRayCast;
+                fire = fireRaycast;
             }
 
             else
             {
                 // just in case we add a type and not a method to shoot it.
-                shoot = ShootRayCast;
+                fire = fireRaycast;
             }
         }
 
         private void reload()
         {
-            isReloading = true;
-            // there should be a multi second delay on reloading.
-            magazine.Reload();
-            isOutofAmmo = false;
-            isReloading = false;
+            Debug.Log("We have started the  reloading of the magazine");
+            StartCoroutine(reload_CoRoutine());
+          Debug.Log("We have finished the reloading the magazine");
+        }
 
-          Debug.Log("We have reloaded the magazine");
+        private IEnumerator reload_CoRoutine()
+        {
+            isReloading = true;
+
+            yield return new WaitForSeconds(3f);
+            // Let's replenish the magazine
+            magazine.Reload();
+
+            isReloading = false;
+            isOutofAmmo = false;
         }
 
         private void outOfAmmo()
         {
+
+            isOutofAmmo = true;
+            // Audio at the location of the FirePoint GameObject
+            firePointAudioSource.clip = weaponData.OutOfAmmoSound;
+            firePointAudioSource.Play();
+
             //  Update the UI
             //  Put the weapon in a visible out of ammo state
             //  make a out of ammo sound, IE. the gun did not fire
-            isOutofAmmo = true;
         }
 
         private void checkHealth()
@@ -230,3 +245,6 @@ namespace Assets.Scripts
 
 
 }
+
+
+

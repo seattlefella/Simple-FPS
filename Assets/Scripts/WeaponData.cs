@@ -22,6 +22,7 @@ namespace Assets.Scripts
         public GameObject DestructEffect;
         public GameObject GunJamEffect;
         public AudioClip GunJamSound;
+        public AudioClip OutOfAmmoSound;
 
         // Health variables
         public float WeaponHealth;      // The current health of the weapon
