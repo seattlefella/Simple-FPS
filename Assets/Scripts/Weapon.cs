@@ -27,8 +27,8 @@ namespace Assets.Scripts
         private Munition munition;
 
         // Delegates and events needed by the class
-        private delegate void shootMethod();
-        private shootMethod fire;
+        public delegate void shootMethod();
+        public shootMethod fire;
 
 
         // The designer must use the editor to set the references
@@ -113,12 +113,12 @@ namespace Assets.Scripts
         private void shoot()
         {
             // Get a munition from the active magazine if out of ammo take out of ammo action
+            // TODO: Modify magazine.GetMunition() to also return a projectile GameObject
             munition = magazine.GetMunition();
             if (munition == null || isOutofAmmo || isReloading)
             {
                 // Enter the out of ammo state until you are reloaded
                 outOfAmmo();
-                // reload();
 
                 // you cannot shoot with no ammo!
                 return;
@@ -178,8 +178,8 @@ namespace Assets.Scripts
         private void fireProjectile()
         {
             // The target senses via OnCollisionEnter And takes action
-            launchedBullet = (GameObject)Instantiate(weaponData.Projectile, firePoint.transform.position, firePoint.transform.rotation);
-            launchedBullet.GetComponent<Rigidbody>().AddForce(firePoint.transform.forward * weaponData.InitialVelocity, ForceMode.Impulse);
+            launchedBullet = (GameObject)Instantiate(munition.Projectile, firePoint.transform.position, firePoint.transform.rotation);
+            launchedBullet.GetComponent<Rigidbody>().AddForce(firePoint.transform.forward * munition.InitialVelocity, ForceMode.Impulse);
 
             // The munition missed everything so simply destroy it at the end of its life time
             Destroy(launchedBullet, munition.LifeTime);

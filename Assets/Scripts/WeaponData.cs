@@ -31,9 +31,9 @@ namespace Assets.Scripts
 
         // Parameters needed if the munition is a projectile
         // Todo: Add a custom inspector to only show these fields if this weapon can fire projectiles
-        [Header("Parameters needed to shoot a Projectile ")]
-        public GameObject Projectile;
-        public float InitialVelocity;   // ToDo: put a range limit on this
+        //[Header("Parameters needed to shoot a Projectile ")]
+        //public GameObject Projectile;   // The prefab of projectile to be fired.
+        //public float InitialVelocity;   // ToDo: put a range limit on this
 
     }
 

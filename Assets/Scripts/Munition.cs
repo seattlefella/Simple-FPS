@@ -28,6 +28,10 @@ namespace Assets.Scripts
         public Vector3 StrikeingForce;  // The resulting impulse force hitting a target
         public float WeaponDamage;      // The toll this munition takes on the weapon
 
+        [Header("Parameters needed to shoot a Projectile ")]
+        public GameObject Projectile;   // The prefab of projectile to be fired.
+        public float InitialVelocity;   // ToDo: put a range limit on this
+
 
     }
 }

@@ -43,6 +43,9 @@ namespace Assets.Scripts
             {
                 currentMunition = currentClip.Pop();
                 CurrentCount = currentClip.Count;
+
+                // TODO: if the munition is a projectile we should instantiate it here and pass a reference back for it.
+                // passing it on to the shoot method.
                 return currentMunition;
             }
 
@@ -65,6 +68,7 @@ namespace Assets.Scripts
             // Possible to use an algorithm design pattern
             for (var i = 0; i < size; i++)
             {
+//                launchedBullet = (GameObject)Instantiate(weaponData.Projectile, firePoint.transform.position, firePoint.transform.rotation);
                 _clip.Push(currentMagazine.Supported[0]);
             }
 
