@@ -30,6 +30,10 @@ namespace Assets.Scripts
 
         [Header("Parameters needed to shoot a Projectile ")]
         public GameObject Projectile;   // The prefab of projectile to be fired.
+
+        public PoolManger.Pool Pool;    // keep track of which pool the specific munition is from
+
+        public GameObject MunitionToFire;    //The gameObject that is instantiated by the Magazine class when it is loading the clip
         public float InitialVelocity;   // ToDo: put a range limit on this
 
 

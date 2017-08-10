@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using System;
 
 namespace Assets.Scripts
 {
@@ -21,10 +22,10 @@ namespace Assets.Scripts
         // The magazine class this weapon will use to operate
         private Magazine magazine;
 
-        // This is all of the parametric data on the munition.
-        // Todo: This will be re-factored to come from a magazine class.
- //       [SerializeField]
-        private Munition munition;
+        // This is all of the parametric data on the currentMunition.
+        private Munition currentMunition;
+        private GameObject currentProjectile;
+        private PoolManger.PoolItem currentPoolItem;
 
         // Delegates and events needed by the class
         public delegate void shootMethod();
@@ -42,7 +43,7 @@ namespace Assets.Scripts
         private GameObject playerCamera;
 
         // We need to cache references to both the sound and visual so we can enable and change them
-        // this comes from the munition
+        // this comes from the currentMunition
 
         private GameObject muzzleEffect;
 
@@ -69,7 +70,7 @@ namespace Assets.Scripts
             ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
             // This class maintains the state of our available ammo
-            magazine = new Magazine(magazineData);
+            magazine = new Magazine(magazineData, firePoint);
 
             // Set up the delegates so they know which shoot function to use
             setUpFireDelegate();
@@ -112,10 +113,24 @@ namespace Assets.Scripts
 
         private void shoot()
         {
-            // Get a munition from the active magazine if out of ammo take out of ammo action
-            // TODO: Modify magazine.GetMunition() to also return a projectile GameObject
-            munition = magazine.GetMunition();
-            if (munition == null || isOutofAmmo || isReloading)
+            // Get a currentMunition from the active magazine if out of ammo take out of ammo action
+            // TODO: Modify magazine.GetMunition() to return a projectile from a pool
+            currentMunition = magazine.GetMunition();
+
+
+            if (weaponData.Type == WeaponType.Projectile && currentMunition != null && !isOutofAmmo && !isReloading)
+            {
+                // This is where we might put a reference to a pool object
+//                currentProjectile = (GameObject)Instantiate(currentMunition.Projectile, firePoint.transform.position, firePoint.transform.rotation);
+               currentPoolItem = currentMunition.Pool.GeItem(firePoint.transform.position, firePoint.transform.rotation);
+               currentProjectile = currentPoolItem.Item;
+
+
+                // The currentMunition missed everything so simply destroy it at the end of its life time
+                Disable(currentMunition.Pool, currentPoolItem, currentMunition.LifeTime);
+            }
+
+            if (currentMunition == null || isOutofAmmo || isReloading)
             {
                 // Enter the out of ammo state until you are reloaded
                 outOfAmmo();
@@ -133,6 +148,19 @@ namespace Assets.Scripts
             // fire the weapon using the method in Start()  projectile or ray.
             fire();
 
+        }
+
+        private void Disable(PoolManger.Pool _pool, PoolManger.PoolItem _poolItem, float _lifeTime)
+        {
+            // Wait lifeTime using a yield statement
+            StartCoroutine(munitionLifetime( _pool,  _poolItem,  _lifeTime));
+
+        }
+
+        private IEnumerator munitionLifetime(PoolManger.Pool _pool, PoolManger.PoolItem _poolItem, float _lifeTime)
+        {
+            yield return new WaitForSeconds(_lifeTime);
+            _pool.ReturnItem(_poolItem);
         }
 
         private void setUpFireDelegate() { 
@@ -161,7 +189,7 @@ namespace Assets.Scripts
             ray.direction = firePoint.transform.forward;
 
             // Notify what ever was hit that it was hit and by what
-            if (Physics.Raycast(ray, out hitInfo, munition.Range))
+            if (Physics.Raycast(ray, out hitInfo, currentMunition.Range))
             {
                 // Send a call to the target that was hit so it can take appropriate action
                 // ToDo: eliminate the need for temp component and move to an event system
@@ -178,17 +206,13 @@ namespace Assets.Scripts
         private void fireProjectile()
         {
             // The target senses via OnCollisionEnter And takes action
-            launchedBullet = (GameObject)Instantiate(munition.Projectile, firePoint.transform.position, firePoint.transform.rotation);
-            launchedBullet.GetComponent<Rigidbody>().AddForce(firePoint.transform.forward * munition.InitialVelocity, ForceMode.Impulse);
-
-            // The munition missed everything so simply destroy it at the end of its life time
-            Destroy(launchedBullet, munition.LifeTime);
+            currentProjectile.GetComponent<Rigidbody>().AddForce(firePoint.transform.forward * currentMunition.InitialVelocity, ForceMode.Impulse);
         }
 
         private void muzzleFireEffect()
         {
             // Visual at the location of the FirePoint GameObject
-            muzzleEffect = (GameObject)Instantiate(munition.MuzzleEffect, Vector3.zero, Quaternion.identity);
+            muzzleEffect = (GameObject)Instantiate(currentMunition.MuzzleEffect, Vector3.zero, Quaternion.identity);
             muzzleEffect.transform.parent = muzzleEffectParent;
             muzzleEffect.transform.localPosition = Vector3.zero;
             muzzleEffect.transform.localRotation = Quaternion.identity;
@@ -196,7 +220,7 @@ namespace Assets.Scripts
             muzzleEffect.SetActive(true);
 
             // Audio at the location of the FirePoint GameObject
-            firePointAudioSource.clip = munition.FireSound;
+            firePointAudioSource.clip = currentMunition.FireSound;
             firePointAudioSource.Play();
 
             Destroy(muzzleEffect, 2f);

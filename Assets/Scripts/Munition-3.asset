@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Name: Munition-3
   m_EditorClassIdentifier: 
   Version: 1.00
-  IsRayCast: 1
   Name: Large
-  Type: RayCast
+  Type: 144
   Supported: AK-47
   MuzzleEffect: {fileID: 1923521296949846, guid: a64567122841501488ace1627eb1b0f6,
     type: 2}
@@ -26,3 +25,6 @@ MonoBehaviour:
   TargetDamage: 8
   StrikeingForce: {x: 0, y: 0, z: 0}
   WeaponDamage: 1
+  Projectile: {fileID: 1222324362426642, guid: 11c250eb01587a047a80d97f7f6ff869, type: 2}
+  MunitionToFire: {fileID: 0}
+  InitialVelocity: 50

@@ -29,11 +29,9 @@ namespace Assets.Scripts
         public float WeaponMaxHealth;   // The health when the weapon is new.
         public float WeaponHealRate;    // The rate at which the weapon will cool, or heal from damage
 
-        // Parameters needed if the munition is a projectile
-        // Todo: Add a custom inspector to only show these fields if this weapon can fire projectiles
-        //[Header("Parameters needed to shoot a Projectile ")]
-        //public GameObject Projectile;   // The prefab of projectile to be fired.
-        //public float InitialVelocity;   // ToDo: put a range limit on this
+        // Changes if any to the weapon if the munition is a projectile
+            // So far all have been moved to the munition class
+
 
     }
 
