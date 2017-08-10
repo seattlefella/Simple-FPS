@@ -29,7 +29,9 @@ namespace Assets.Scripts
             if (collision.gameObject.tag == triggerTag)
             {
                 // We must destroy the gameObject of the munition that hit us.
-                Destroy(collision.gameObject);
+                var item = collision.gameObject.GetComponent<Projectial>().PoolItem;
+                var pool = collision.gameObject.GetComponent<Projectial>().Pool;
+                pool.ReturnItem(item);
                 Explosion();
             }
 

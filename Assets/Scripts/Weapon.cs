@@ -125,6 +125,12 @@ namespace Assets.Scripts
                currentPoolItem = currentMunition.Pool.GeItem(firePoint.transform.position, firePoint.transform.rotation);
                currentProjectile = currentPoolItem.Item;
 
+                // We must place this data on the projectile so when it collides with an object it can be put back into the pool
+               Projectial currentProjectialComponent = currentProjectile.GetComponent<Projectial>();
+                currentProjectialComponent.Pool = currentMunition.Pool;
+                currentProjectialComponent.LifeTime = currentMunition.LifeTime;
+                currentProjectialComponent.PoolItem = currentPoolItem;
+
 
                 // The currentMunition missed everything so simply destroy it at the end of its life time
                 Disable(currentMunition.Pool, currentPoolItem, currentMunition.LifeTime);
