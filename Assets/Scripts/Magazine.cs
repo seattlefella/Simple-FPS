@@ -14,8 +14,6 @@ namespace Assets.Scripts
         private PoolManger poolManger;
         private PoolManger.Pool pool;
 
-        private GameObject firePoint;
-
         // the data we are using to build new magazine clips
         private MagazineData currentMagazine;
 
@@ -33,8 +31,6 @@ namespace Assets.Scripts
         {
             // Let's keep a reference to the magazine operating parameters
             currentMagazine = _data;
-            // Some munitions need to know where the weapon fire point is.
-            firePoint = _firePoint;
 
             // Let's get a reference to the PoolManager
             poolManger = PoolManger.Instance;
@@ -90,7 +86,6 @@ namespace Assets.Scripts
             // TODO:  add logic to change the mix of munitions as specified in the MagazineData
             for (var i = 0; i < size; i++)
             {
-                // ToDo:  This is only pushing the same data block onto the clip - 
                 // That is the clip really only holds data about the bullet and a reference to a pool
                 // Where a game object can be had.
 

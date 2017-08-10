@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.Events;
 
 namespace Assets.Scripts
@@ -41,6 +42,12 @@ namespace Assets.Scripts
         {
                 targetRenderer.enabled = false;
                 explosion.SetActive(true);
+        }
+
+        private IEnumerator munitionLifetime(PoolManger.Pool _pool, PoolManger.PoolItem _poolItem, float _lifeTime)
+        {
+            yield return new WaitForSeconds(_lifeTime);
+            _pool.ReturnItem(_poolItem);
         }
 
         void OnEnable()

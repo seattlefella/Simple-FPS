@@ -53,7 +53,6 @@ namespace Assets.Scripts
 
         // Variables related to the state of the weapon
         private bool isReloading;
-
         private bool isOutofAmmo;
 
         // private variables needed for internal reasons by the class
@@ -113,20 +112,18 @@ namespace Assets.Scripts
 
         private void shoot()
         {
-            // Get a currentMunition from the active magazine if out of ammo take out of ammo action
-            // TODO: Modify magazine.GetMunition() to return a projectile from a pool
+            // Get a currentMunition from the active magazine and pool manager if out of ammo take out of ammo action
             currentMunition = magazine.GetMunition();
 
 
             if (weaponData.Type == WeaponType.Projectile && currentMunition != null && !isOutofAmmo && !isReloading)
             {
                 // This is where we might put a reference to a pool object
-//                currentProjectile = (GameObject)Instantiate(currentMunition.Projectile, firePoint.transform.position, firePoint.transform.rotation);
                currentPoolItem = currentMunition.Pool.GeItem(firePoint.transform.position, firePoint.transform.rotation);
                currentProjectile = currentPoolItem.Item;
 
                 // We must place this data on the projectile so when it collides with an object it can be put back into the pool
-               Projectial currentProjectialComponent = currentProjectile.GetComponent<Projectial>();
+                Projectial currentProjectialComponent = currentProjectile.GetComponent<Projectial>();
                 currentProjectialComponent.Pool = currentMunition.Pool;
                 currentProjectialComponent.LifeTime = currentMunition.LifeTime;
                 currentProjectialComponent.PoolItem = currentPoolItem;
