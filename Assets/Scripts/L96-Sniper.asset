@@ -9,13 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcd58e74080db684dbc6272a7626d31f, type: 3}
-  m_Name: Ak-47
+  m_Name: L96-Sniper
   m_EditorClassIdentifier: 
   Version: 
-  Name: Ak-47
+  Name: L96-Sniper
   Type: 0
   Supported: []
-  IsSingleFire: 0
+  IsSingleFire: 1
   FireRate: 5
   JamRate: 0
   KickBackEffect: {fileID: 0}

@@ -108,6 +108,15 @@ namespace Assets.Scripts
                 reload();
             }
 
+            Debug.DrawRay(firePoint.transform.position, firePoint.transform.forward * 10, Color.green, 0, false);
+
+        }
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            //Gizmos.DrawSphere(firePoint.transform.position, 0.05f/4f);
+            Gizmos.DrawRay(firePoint.transform.position, firePoint.transform.forward * 10);
         }
 
         private void shoot()

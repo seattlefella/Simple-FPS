@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Version: 1.00
   Name: Small
-  Type: 0
+  Type: 1
   Supported: AK-47
   MuzzleEffect: {fileID: 1923521296949846, guid: a64567122841501488ace1627eb1b0f6,
     type: 2}
@@ -27,4 +27,4 @@ MonoBehaviour:
   WeaponDamage: 1
   Projectile: {fileID: 1222324362426642, guid: 11c250eb01587a047a80d97f7f6ff869, type: 2}
   MunitionToFire: {fileID: 0}
-  InitialVelocity: 50
+  InitialVelocity: 30

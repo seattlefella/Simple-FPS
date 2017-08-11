@@ -9,10 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdf3cb15d0db75348a4aa7bd856ae1a3, type: 3}
-  m_Name: Magazine-1
+  m_Name: Magazine-2
   m_EditorClassIdentifier: 
   Version: 1
-  Name: AK-47 Single Clip
+  Name: SciFy Heavy
   Type: 0
   Supported:
   - {fileID: 11400000, guid: a1c2385f3a2816f40991b2ce8c97b036, type: 2}
@@ -21,7 +21,7 @@ MonoBehaviour:
   MaxSize: 10
   CurrentCount: 10
   IsEmpty: 0
-  ReloadTime: 1
+  ReloadTime: 3
   ReloadingEffect: {fileID: 0}
   LoadingSound: {fileID: 0}
   MagazineHealth: 5
