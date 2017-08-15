@@ -11,7 +11,9 @@ namespace Assets.Scripts
         public WeaponType Type;        // Ray-cast or projectile
 
         // Weapon specifics
-        public Munition[] Supported;   // A list of the supported munitions
+        public Munition[] Munitions;   // A list of the supported munitions
+        public MagazineData[] Magazines;   // The magazine's that this weapon will support
+
         public bool IsSingleFire;
         public float FireRate;
         public float JamRate;       //What percentage of shots will jam

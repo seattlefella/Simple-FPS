@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf3cb15d0db75348a4aa7bd856ae1a3, type: 3}
+  m_Name: AK-47-Magazine 1
+  m_EditorClassIdentifier: 
+  Version: 1
+  Name: AK-47 Single Clip
+  Type: 0
+  Supported:
+  - {fileID: 11400000, guid: a1c2385f3a2816f40991b2ce8c97b036, type: 2}
+  - {fileID: 11400000, guid: c7edd1adcdb59804ab675b005bab9bd3, type: 2}
+  - {fileID: 11400000, guid: 2e77fb764e3e33b4a948b90e12466f6b, type: 2}
+  MaxSize: 20
+  CurrentCount: 20
+  IsEmpty: 0
+  ReloadTime: 1
+  ReloadingEffect: {fileID: 0}
+  LoadingSound: {fileID: 0}
+  MagazineHealth: 5
+  MagazineMaxHealth: 5
+  MagazineHealRate: 5

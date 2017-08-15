@@ -9,7 +9,7 @@ namespace Assets.Scripts
 
         public string Name;             // the name of the Magazine class. IE. 30 rounds
         public MagazineType Type;        // For now, just Single or double - faster reload time
-        public Munition[] Supported;   // A list of the supported munitions
+ //       public Munition[] Supported;   // A list of the supported munitions
 
         // Magazine Specifics
         public int MaxSize;         // The maximum number of munitions this magazine can hold

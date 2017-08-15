@@ -52,14 +52,24 @@ namespace Assets.Scripts
 
         void OnEnable()
         {
-            EventManager.OnHitByMunition.AddListener(OnHitByMunition);  
-
+            EventManager.OnHitByMunition.AddListener(OnHitByMunition);
         }
+
+        public void OnTestMultiCast()
+        {
+            Debug.Log("The Multi Cast function call triggered on a Target");
+        }
+
+        public void OnTestMultiCastEvent()
+        {
+            Debug.Log("The Multi Cast ACTION  on a Target");
+        }
+
 
         void OnDisable()
         {
             EventManager.OnHitByMunition.RemoveListener(OnHitByMunition);
-
+ 
         }
 
         public void OnHitByMunition(RaycastHit _hitInfo, WeaponType _type)

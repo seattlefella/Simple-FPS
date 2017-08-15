@@ -4,10 +4,12 @@ using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Scripts
 {
-    public class Weapon : MonoBehaviour
+    public class Weapon  : MonoBehaviour
     {
 
         // We want as many parameters as possible stored within the scriptableObject
@@ -19,23 +21,22 @@ namespace Assets.Scripts
         [SerializeField]
         private MagazineData magazineData;
 
-        // The magazine class this weapon will use to operate
-        private Magazine magazine;
+        // The currentMagazine class this weapon will use to operate
+        private Magazine currentMagazine;
 
-        // This is all of the parametric data on the currentMunition.
-        private Munition currentMunition;
-        private GameObject currentProjectile;
-        private PoolManger.PoolItem currentPoolItem;
+        // The collection of currentMagazine's that this weapon will support
+        [SerializeField]
+        private Magazine[] magazines;
+
 
         // Delegates and events needed by the class
         public delegate void shootMethod();
         public shootMethod fire;
 
-
+        // -------------------------GameObjects from the hierarchy needed by the class---------------------------------
         // The designer must use the editor to set the references
         // These cannot be stored int eh scriptableObject
-        [SerializeField]
-        private GameObject firePoint;
+        public GameObject FirePoint;
         [SerializeField]
         private AudioSource firePointAudioSource;
 
@@ -44,21 +45,25 @@ namespace Assets.Scripts
 
         // We need to cache references to both the sound and visual so we can enable and change them
         // this comes from the currentMunition
-
         private GameObject muzzleEffect;
-
         [SerializeField]
         private Transform muzzleEffectParent;
 
+        // -------------------------private variables needed for internally by the class---------------------------------
+        // This is all of the parametric data on the currentMunition.
+        private Munition currentMunition;
+        private GameObject currentProjectile;
+        private PoolManger.PoolItem currentPoolItem;
 
         // Variables related to the state of the weapon
         private bool isReloading;
         private bool isOutofAmmo;
 
-        // private variables needed for internal reasons by the class
         private GameObject launchedBullet;
         private RaycastHit hitInfo;
         private Ray ray;
+        public bool MyDebug = false;
+        public int AmmoRemaining;
 
 
         // Use this for initialization
@@ -68,16 +73,27 @@ namespace Assets.Scripts
             playerCamera = GameObject.FindGameObjectWithTag("FPCamera");
             ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
-            // This class maintains the state of our available ammo
-            magazine = new Magazine(magazineData, firePoint);
-
             // Set up the delegates so they know which shoot function to use
             setUpFireDelegate();
 
-            // initialize the misc. state variables.
-            isReloading = magazine.IsReloading;
-            isOutofAmmo = magazine.IsEmpty;
+        }
 
+        public void SetCurrentMagazine(Magazine _magazine)
+        {
+            currentMagazine = _magazine;
+            // initialize the misc. state variables.
+            isReloading = currentMagazine.IsReloading;
+            isOutofAmmo = currentMagazine.IsEmpty;
+        }
+
+        public List<MagazineData> GetMagazines()
+        {
+            return weaponData.Magazines.ToList();
+        }
+
+        internal List<Munition> GetMunitions()
+        {
+            return weaponData.Munitions.ToList();
         }
 
         // Update is called once per frame
@@ -108,27 +124,42 @@ namespace Assets.Scripts
                 reload();
             }
 
-            Debug.DrawRay(firePoint.transform.position, firePoint.transform.forward * 10, Color.green, 0, false);
+
 
         }
+
 
         void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            //Gizmos.DrawSphere(firePoint.transform.position, 0.05f/4f);
-            Gizmos.DrawRay(firePoint.transform.position, firePoint.transform.forward * 10);
+
+            if (MyDebug == true)
+            {
+                Gizmos.DrawRay(FirePoint.transform.position, FirePoint.transform.forward * 10);
+            }
         }
 
         private void shoot()
         {
-            // Get a currentMunition from the active magazine and pool manager if out of ammo take out of ammo action
-            currentMunition = magazine.GetMunition();
+
+            // Get a currentMunition from the active currentMagazine and pool manager if out of ammo take out of ammo action
+            if (currentMagazine != null)
+            {
+                // I am not sure why this test is required but with out it every other frame current magazine seems to be null.
+                currentMunition = currentMagazine.GetMunition();
+                if (currentMunition != null)
+                {
+                    // We will send this data to a UI update event soon enough.
+                    AmmoRemaining = currentMagazine.CurrentCount;
+                }
+
+            }
 
 
             if (weaponData.Type == WeaponType.Projectile && currentMunition != null && !isOutofAmmo && !isReloading)
             {
                 // This is where we might put a reference to a pool object
-               currentPoolItem = currentMunition.Pool.GeItem(firePoint.transform.position, firePoint.transform.rotation);
+               currentPoolItem = currentMunition.Pool.GeItem(FirePoint.transform.position, FirePoint.transform.rotation);
                currentProjectile = currentPoolItem.Item;
 
                 // We must place this data on the projectile so when it collides with an object it can be put back into the pool
@@ -197,14 +228,13 @@ namespace Assets.Scripts
         private void fireRaycast()
         {
             // Fire the shot via ray-cast
-            ray.origin = firePoint.transform.position;
-            ray.direction = firePoint.transform.forward;
+            ray.origin = FirePoint.transform.position;
+            ray.direction = FirePoint.transform.forward;
 
             // Notify what ever was hit that it was hit and by what
             if (Physics.Raycast(ray, out hitInfo, currentMunition.Range))
             {
                 // Send a call to the target that was hit so it can take appropriate action
-                // ToDo: eliminate the need for temp component and move to an event system
 
                 if (EventManager.OnHitByMunition != null)
                 {
@@ -218,7 +248,7 @@ namespace Assets.Scripts
         private void fireProjectile()
         {
             // The target senses via OnCollisionEnter And takes action
-            currentProjectile.GetComponent<Rigidbody>().AddForce(firePoint.transform.forward * currentMunition.InitialVelocity, ForceMode.Impulse);
+            currentProjectile.GetComponent<Rigidbody>().AddForce(FirePoint.transform.forward * currentMunition.InitialVelocity, ForceMode.Impulse);
         }
 
         private void muzzleFireEffect()
@@ -253,18 +283,24 @@ namespace Assets.Scripts
 
         private void reload()
         {
-            Debug.Log("We have started the  reloading of the magazine");
+            Debug.Log("We have started the  reloading of the currentMagazine");
+            if (currentMagazine == null)
+            {
+                return;
+            }
             StartCoroutine(reload_CoRoutine());
-          Debug.Log("We have finished the reloading the magazine");
+          Debug.Log("We have finished the reloading the currentMagazine");
         }
 
         private IEnumerator reload_CoRoutine()
         {
+
+
             isReloading = true;
 
             yield return new WaitForSeconds(magazineData.ReloadTime);
-            // Let's replenish the magazine
-            magazine.Reload();
+            // Let's replenish the currentMagazine
+            currentMagazine.Reload();
 
             isReloading = false;
             isOutofAmmo = false;

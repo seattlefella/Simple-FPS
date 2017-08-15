@@ -18,6 +18,7 @@ namespace Assets.Scripts
         private MagazineData currentMagazine;
 
         private Munition currentMunition;
+        private List<Munition> munitions = new List<Munition>();
 
         // The data structure used to hold the munitions set up as a LIFO store
         private Stack<Munition> currentClip = new Stack<Munition>();
@@ -27,10 +28,11 @@ namespace Assets.Scripts
 //
 
         // As this is a non mono-behavior we need a constructor
-        public Magazine(MagazineData _data, GameObject _firePoint)
+        public Magazine(MagazineData _data, GameObject _firePoint, List<Munition> _munitions, int _mix)
         {
             // Let's keep a reference to the magazine operating parameters
             currentMagazine = _data;
+            munitions = _munitions;
 
             // Let's get a reference to the PoolManager
             poolManger = PoolManger.Instance;
@@ -75,7 +77,7 @@ namespace Assets.Scripts
         private Stack<Munition> loadClip(Stack<Munition> _clip)
         {
             // Create an object pool for each potential munition
-            foreach (Munition munitionType in currentMagazine.Supported) 
+            foreach (Munition munitionType in munitions) 
             {
                 // Create the pool
                 var temp = poolManger.CreatePool(munitionType.Projectile, currentMagazine.MaxSize);
@@ -89,7 +91,7 @@ namespace Assets.Scripts
                 // That is the clip really only holds data about the bullet and a reference to a pool
                 // Where a game object can be had.
 
-                _clip.Push(currentMagazine.Supported[0]);
+                _clip.Push(munitions[0]);
             }
 
             IsReloading = false;

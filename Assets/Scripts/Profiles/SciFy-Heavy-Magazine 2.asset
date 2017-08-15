@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf3cb15d0db75348a4aa7bd856ae1a3, type: 3}
+  m_Name: SciFy-Heavy-Magazine 2
+  m_EditorClassIdentifier: 
+  Version: 1
+  Name: SciFy Heavy
+  Type: 0
+  MaxSize: 30
+  CurrentCount: 30
+  IsEmpty: 0
+  ReloadTime: 2
+  ReloadingEffect: {fileID: 0}
+  LoadingSound: {fileID: 0}
+  MagazineHealth: 5
+  MagazineMaxHealth: 5
+  MagazineHealRate: 5

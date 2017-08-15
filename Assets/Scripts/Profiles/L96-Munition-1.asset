@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a19632fbc4eb08547b92bea9e823593f, type: 3}
+  m_Name: L96-Munition-1
+  m_EditorClassIdentifier: 
+  Version: 1.00
+  Name: Small
+  Type: 0
+  Supported: L96
+  MuzzleEffect: {fileID: 1923521296949846, guid: a64567122841501488ace1627eb1b0f6,
+    type: 2}
+  TravelEffect: {fileID: 0}
+  DestructEffect: {fileID: 0}
+  FireSound: {fileID: 8300000, guid: 2d86eeb72727fe541b7b97491109bbe9, type: 3}
+  Range: 20
+  LifeTime: 1
+  TargetDamage: 5
+  StrikeingForce: {x: 0, y: 0, z: 0}
+  WeaponDamage: 1
+  Projectile: {fileID: 1222324362426642, guid: 11c250eb01587a047a80d97f7f6ff869, type: 2}
+  MunitionToFire: {fileID: 0}
+  InitialVelocity: 30
