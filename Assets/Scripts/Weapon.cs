@@ -283,13 +283,11 @@ namespace Assets.Scripts
 
         private void reload()
         {
-            Debug.Log("We have started the  reloading of the currentMagazine");
             if (currentMagazine == null)
             {
                 return;
             }
             StartCoroutine(reload_CoRoutine());
-          Debug.Log("We have finished the reloading the currentMagazine");
         }
 
         private IEnumerator reload_CoRoutine()
@@ -309,7 +307,7 @@ namespace Assets.Scripts
         private void checkHealth()
         {
             // Debug.Log("We are out of ammo and need to reload");
-            return;
+            throw new NotImplementedException();
         }
 
 

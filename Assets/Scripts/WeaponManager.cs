@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -53,15 +54,6 @@ namespace Assets.Scripts
 			magazines = currentWeapon.GetMagazines();
 			munitions = currentWeapon.GetMunitions();
 
-			//foreach (var name in magazines)
-			//{
-			//	Debug.Log(name.Name + "   count: " + name.MaxSize + "  current: " + name.CurrentCount);
-			//}
-			//foreach (var name in munitions)
-			//{
-			//	Debug.Log(name.Name + "   count: " + name.Name );
-			//}
-
 			// create a magazine with the load specified
 			var mix = 1;
 			currentMagazine = new Magazine(magazines[1], currentWeapon.FirePoint, munitions, mix);
@@ -69,50 +61,52 @@ namespace Assets.Scripts
 			
 		}
 
-
-
-
 		public GameObject InitilizeWeapon(GameObject _weapon)
 		{
 			// Instantiate the weapon gameObject.
 			// We may want to create all of the potential weapons and simply disable them.
 			// this would allow the user to change weapons during game play.
-			var temp = Instantiate(_weapon, WeaponHolder.transform,false);
 
-		   return (temp) ;
+		   return (Instantiate(_weapon, WeaponHolder.transform, false)) ;
 		}
+
 		public void SetCurrentWeapon(Weapon _weapon)
 		{
-			// Make the given weapon the active game weapon
-		}
+            // Make the given weapon the active game weapon
+		    throw new NotImplementedException();
+        }
 
 		public float GetWeaponHealth()
 		{
-			return 1f;
-		}
-
+		    throw new NotImplementedException();
+        }
 
 		// Get a list of all magazines that the current weapon can use.
 		public List<MagazineData> GetMagazines(Weapon _weapon)
 		{
 			return _weapon.GetMagazines();
 		}
+
 		// These functions may belong in the magazine class
 		public void CreateMagazine()
 		{
-			// Give the selected munitions, load the munition in some pattern.
-			// Uniform, every other one, random, round robin
-		}
+            // Give the selected munitions, load the munition in some pattern.
+            // Uniform, every other one, random, round robin
+		    throw new NotImplementedException();
+        }
 
 		public void SetMagazineMix()
 		{
-			// Give the selected munitions, load the munition in some pattern.
-			// Uniform, every other one, random, round robin
-		}
+            // Give the selected munitions, load the munition in some pattern.
+            // Uniform, every other one, random, round robin
+		    throw new NotImplementedException();
+        }
 
 		public void SelectMunitions()
 		{
-			// The mix of munitions that are placed into a magazine
-		}
+            // The mix of munitions that are placed into a magazine
+		    throw new NotImplementedException();
+
+        }
 	}
 }
