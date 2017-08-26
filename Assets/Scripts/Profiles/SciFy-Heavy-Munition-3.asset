@@ -23,7 +23,7 @@ MonoBehaviour:
   Range: 10
   LifeTime: 3
   TargetDamage: 2
-  StrikeingForce: {x: 0, y: 0, z: 0}
+  StrikeingForce: 200
   WeaponDamage: 1
   Projectile: {fileID: 1222324362426642, guid: 11c250eb01587a047a80d97f7f6ff869, type: 2}
   MunitionToFire: {fileID: 0}

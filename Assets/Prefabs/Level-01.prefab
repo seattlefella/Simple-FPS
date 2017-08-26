@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4763443076836794}
   - component: {fileID: 108141203661975060}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point light (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4431393307941248}
   - component: {fileID: 108631942677932028}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point light (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 33350244523798646}
   - component: {fileID: 23999014196678516}
   - component: {fileID: 64041390719923654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4084950220410750}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,8 @@ GameObject:
   - component: {fileID: 33373447982743590}
   - component: {fileID: 23636960002955578}
   - component: {fileID: 64942929343374118}
-  m_Layer: 0
+  - component: {fileID: 114555693190455732}
+  m_Layer: 8
   m_Name: Level-01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4172692153277358}
   - component: {fileID: 108391620627448916}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +119,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4041275246640634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Level-01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4879351645630778}
   - component: {fileID: 108851824185009606}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point light (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +153,7 @@ GameObject:
   - component: {fileID: 33814580131150558}
   - component: {fileID: 23983953404103482}
   - component: {fileID: 65876003677282112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4917180596213290}
   - component: {fileID: 108323578896223314}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point light (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4862929933679514}
   - component: {fileID: 108795952871401518}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4379398500639178}
   - component: {fileID: 108003613126927598}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point light (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,3 +882,19 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114555693190455732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1552093132816128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6c7bdccbcc472458ac46fff0321bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tempDamage: {fileID: 1461482466455620, guid: 1c93ef09ee41497499bdba0fb507eaad, type: 2}
+  lifeTime: 3
+  triggerTag: Munition
+  explosion: {fileID: 0}
+  targetRenderer: {fileID: 0}

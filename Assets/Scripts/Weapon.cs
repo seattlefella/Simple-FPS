@@ -51,8 +51,11 @@ namespace Assets.Scripts
 
         // -------------------------private variables needed for internally by the class---------------------------------
         // This is all of the parametric data on the currentMunition.
+        [SerializeField]
         private Munition currentMunition;
+        [SerializeField]
         private GameObject currentProjectile;
+        [SerializeField]
         private PoolManger.PoolItem currentPoolItem;
 
         // Variables related to the state of the weapon
@@ -239,7 +242,7 @@ namespace Assets.Scripts
                 if (EventManager.OnHitByMunition != null)
                 {
                     // Send a message using events to the OnWeaponHit event
-                    EventManager.OnHitByMunition.Invoke(hitInfo, weaponData.Type); 
+                    EventManager.OnHitByMunition.Invoke(hitInfo, weaponData.Type, currentMunition); 
 
                 }
             }
@@ -307,6 +310,8 @@ namespace Assets.Scripts
         private void checkHealth()
         {
             // Debug.Log("We are out of ammo and need to reload");
+            return;
+            
             throw new NotImplementedException();
         }
 

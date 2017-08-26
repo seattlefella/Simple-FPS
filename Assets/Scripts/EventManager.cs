@@ -5,7 +5,7 @@ using System;
 namespace Assets.Scripts
 {
     [System.Serializable]
-    public class HitByMunition : UnityEvent<RaycastHit, WeaponType> { }
+    public class HitByMunition : UnityEvent<RaycastHit, WeaponType, Munition> { }
 
     public class EventManager : MonoBehaviour
     {

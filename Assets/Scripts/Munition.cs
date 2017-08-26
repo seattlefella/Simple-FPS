@@ -25,7 +25,7 @@ namespace Assets.Scripts
         public float LifeTime;          // All effects and instances go away
 
         public float TargetDamage;      // Just how much damage will this munition inflict on the target it hits
-        public Vector3 StrikeingForce;  // The resulting impulse force hitting a target
+        public float StrikeingForce;  // The resulting impulse force hitting a target
         public float WeaponDamage;      // The toll this munition takes on the weapon
 
         [Header("Parameters needed to shoot a Projectile ")]
