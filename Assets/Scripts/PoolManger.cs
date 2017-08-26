@@ -61,7 +61,7 @@ namespace Assets.Scripts
         {
             public int Count;
             public int EmptyCount;
-            private GameObject preFab;
+//            private GameObject preFab;
             private Queue<PoolItem> pool;
 
             public Pool(GameObject _preFab, int _size)
@@ -71,7 +71,7 @@ namespace Assets.Scripts
 
                 // every pool should be able to report on some basic parameters
                 Count = _size;
-                preFab = _preFab;
+//                preFab = _preFab;
 
                 for (int i = 0; i < _size; i++)
                 {

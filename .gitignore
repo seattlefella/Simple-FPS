@@ -4,17 +4,26 @@
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
+
+# ===================================== #
+# Unity 3rd Party Asset Files#
+# ===================================== #
+
+Assets/3rdParty/
 3rdParty/
-Builds/
 Assets/Standard Assets/
 Assets/dPartyDatabase Control Free/
-Assets/3rdParty/
+
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
+/.vs/
+.consulo/
+*.tmp
+*.userprefs
+*.pdb
 ExportedObj/
-obj/
 *.svd
 *.userprefs
 *.csproj
@@ -26,10 +35,17 @@ obj/
 *.booproj
 
 # ===================================== #
-# Unity generated #
+# Unity generated Meta & crash report Files#
 # ===================================== #
 *.pidb.meta
 sysinfo.txt
+
+# ===================================== #
+# Unity generated Build Files#
+# ===================================== #
+*.apk
+*.unitypackage
+Builds/
 
 # ============ #
 # OS generated #
